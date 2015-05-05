@@ -37,7 +37,7 @@ class HelloWorld extends BaseTask implements TaskInterface
 
         return new Result(
             $this,
-            1,
+            0,
             'Hello World',
             ['time' => $this->getExecutionTime()]
         );    }
