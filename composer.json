@@ -1,0 +1,21 @@
+{
+  "name": "redcomponent/robo",
+  "description": "Robo tasks for redCOMPONENT Quality Assurance",
+  "keywords": ["robo", "task", "bdd"],
+  "require": {
+    "php": ">=5.4.0",
+    "codegyre/robo": "~0.5"
+  },
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "redCOMPONENT",
+      "email": "javier@redcomponent.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "redcomponent\\robo\\": "src"
+    }
+  }
+}
