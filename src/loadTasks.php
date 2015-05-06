@@ -21,5 +21,13 @@ trait loadTasks {
     {
         return new HelloWorld();
     }
+
+    /**
+     * @return SendCodeceptionOutputToSlack
+     */
+    protected function taskSendCodeceptionOutputToSlack($slackChannel, $slackToken, $codeceptionOutputFolder)
+    {
+        return new SendCodeceptionOutputToSlack($slackChannel, $slackToken, $codeceptionOutputFolder);
+    }
 }
 
