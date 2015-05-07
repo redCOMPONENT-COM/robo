@@ -123,12 +123,14 @@ class SendCodeceptionOutputToSlack extends BaseTask implements TaskInterface
                         $travisLogUrl = 'https://travis-ci.org/';
                     }
 
-                    $initial_comment = 'initial_comment="error found by travis in ' .
+                    $initial_comment = 'initial_comment="'
+                        . 'error found by travis in ' .
                         getenv('TRAVIS_REPO_SLUG')
                         . ' at test: '
                         . substr($errorSnapshot,0,-9)
                         . ' on build: ' . $travisLogUrl . getenv('TRAVIS_REPO_SLUG') . '/builds/'
                         . getenv('TRAVIS_BUILD_ID')
+                        . '"'
                         . ' -F';
 
                 }
