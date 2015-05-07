@@ -144,6 +144,8 @@ class SendCodeceptionOutputToSlack extends BaseTask implements TaskInterface
                     . 'token=' . $this->slackToken . ' '
                     . 'https://slack.com/api/files.upload';
 
+                $this->say($command);
+
                 $response = json_decode(shell_exec($command));
 
                 $result = '';
