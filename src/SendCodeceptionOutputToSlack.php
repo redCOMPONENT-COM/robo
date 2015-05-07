@@ -123,14 +123,12 @@ class SendCodeceptionOutputToSlack extends BaseTask implements TaskInterface
                         $travisLogUrl = 'https://travis-ci.org/';
                     }
 
-                    $initial_comment = 'initial_comment="error found by travis in' .
+                    $initial_comment = 'initial_comment="error found by travis in ' .
                         getenv('TRAVIS_REPO_SLUG')
-                        . 'at test: '
+                        . ' at test: '
                         . substr($errorSnapshot,0,-9)
-                        . ' on build (job id): ' . $travisLogUrl . getenv('TRAVIS_REPO_SLUG') . '/builds/"'
-                        . getenv('TRAVIS_JOB_ID')
-                        . ' on build (build id): ' . $travisLogUrl . getenv('TRAVIS_BUILD_ID') . '/builds/"'
-                        . getenv('TRAVIS_JOB_ID')
+                        . ' on build: ' . $travisLogUrl . getenv('TRAVIS_REPO_SLUG') . '/builds/'
+                        . getenv('TRAVIS_BUILD_ID')
                         . ' -F';
 
                 }
@@ -141,7 +139,7 @@ class SendCodeceptionOutputToSlack extends BaseTask implements TaskInterface
                     . 'channels='. $this->slackChannel  . ' -F '
                     . 'title=Codeception_error -F '
                     . $initial_comment
-                    . 'token=' . $this->slackToken . ' '
+                    . ' token=' . $this->slackToken . ' '
                     . 'https://slack.com/api/files.upload';
 
                 $this->say($command);
