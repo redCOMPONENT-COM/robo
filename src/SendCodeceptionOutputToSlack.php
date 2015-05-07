@@ -67,6 +67,18 @@ class SendCodeceptionOutputToSlack extends BaseTask implements TaskInterface
      */
     public function run()
     {
+        if (!$this->slackToken)
+        {
+            $result = new Result(
+                $this,
+                1,
+                'Slack security token was not received',
+                ['time' => $this->getExecutionTime()]
+            );
+
+            return $result;
+        }
+
         $this->printTaskInfo('Check if there is Codeception snapshots and sending them to Slack.');
         $this->printTaskInfo('Looking for snapshots at:' . $this->codeceptionOutputFolder);
 
@@ -128,7 +140,7 @@ class SendCodeceptionOutputToSlack extends BaseTask implements TaskInterface
         if($error) {
             $result = new Result(
                 $this,
-                0,
+                1,
                 'Slack could not be reached',
                 ['time' => $this->getExecutionTime()]
             );
@@ -147,5 +159,3 @@ class SendCodeceptionOutputToSlack extends BaseTask implements TaskInterface
     }
 
 }
-
-
