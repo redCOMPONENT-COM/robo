@@ -114,21 +114,24 @@ class SendCodeceptionOutputToSlack extends BaseTask implements TaskInterface
 
                 $initial_comment = 'initial_comment="error found"';
 
-                if(getenv(TRAVIS))
+                if(getenv('TRAVIS'))
                 {
                     $travisLogUrl = 'https://magnum.travis-ci.com/';
-                    if (getenv(SLACK_ENCRYPTED_TOKEN))
+                    if (getenv('SLACK_ENCRYPTED_TOKEN'))
                     {
                         // Means that we are in a public repository
                         $travisLogUrl = 'https://travis-ci.org/';
                     }
 
                     $initial_comment = 'initial_comment="error found by travis in' .
-                        getenv(TRAVIS_REPO_SLUG)
+                        getenv('TRAVIS_REPO_SLUG')
                         . 'at test: '
                         . substr($errorSnapshot,0,-9)
-                        . ' on build: ' . $travisLogUrl . getenv(TRAVIS_REPO_SLUG) . '/builds/"'
-                        . getenv('TRAVIS_JOB_ID') . ' -F';
+                        . ' on build (job id): ' . $travisLogUrl . getenv('TRAVIS_REPO_SLUG') . '/builds/"'
+                        . getenv('TRAVIS_JOB_ID')
+                        . ' on build (build id): ' . $travisLogUrl . getenv('TRAVIS_BUILD_ID') . '/builds/"'
+                        . getenv('TRAVIS_JOB_ID')
+                        . ' -F';
 
                 }
 
