@@ -112,11 +112,32 @@ class SendCodeceptionOutputToSlack extends BaseTask implements TaskInterface
                     continue;
                 }
 
+                $initial_comment = 'initial_comment="error found"';
+
+                if(get_env(TRAVIS))
+                {
+                    $travisLogUrl = 'https://magnum.travis-ci.com/';
+                    if (get_env(SLACK_ENCRYPTED_TOKEN))
+                    {
+                        // Means that we are in a public repository
+                        $travisLogUrl = 'https://travis-ci.org/';
+                    }
+
+                    $initial_comment = 'initial_comment="error found by travis in' .
+                        get_env(TRAVIS_REPO_SLUG)
+                        . 'at test: '
+                        . substr($errorSnapshot,0,-9)
+                        . ' on build: ' . $travisLogUrl . get_env(TRAVIS_REPO_SLUG) . '/builds/"'
+                        . getenv('TRAVIS_JOB_ID') . ' -F';
+
+                }
+
+
                 // Sends error snapshot to Slack channel
                 $command = 'curl -F file=@' . $this->codeceptionOutputFolder . '/' . $errorSnapshot . ' -F '
                     . 'channels='. $this->slackChannel  . ' -F '
                     . 'title=Codeception_error -F '
-                    . 'initial_comment="error found by travis in redSHOP1 at test: ' . substr($errorSnapshot,0,-9) . ' on build: https://magnum.travis-ci.com/redCOMPONENT-COM/redSHOP/builds/"' . getenv('TRAVIS_JOB_ID') . ' -F'
+                    . $initial_comment
                     . 'token=' . $this->slackToken . ' '
                     . 'https://slack.com/api/files.upload';
 
