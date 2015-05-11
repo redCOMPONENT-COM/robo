@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     robo-tasks
- * @subpackage  
+ * @subpackage
  *
  * @copyright   Copyright (C) 2005 - 2015 redCOMPONENT.com. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
@@ -28,6 +28,14 @@ trait loadTasks {
     protected function taskSendCodeceptionOutputToSlack($slackChannel, $slackToken, $codeceptionOutputFolder)
     {
         return new SendCodeceptionOutputToSlack($slackChannel, $slackToken, $codeceptionOutputFolder);
+    }
+
+    /**
+     * @return WaitForSeleniumStandaloneServer
+     */
+    protected function taskWaitForSeleniumStandaloneServer()
+    {
+        return new WaitForSeleniumStandaloneServer();
     }
 }
 
