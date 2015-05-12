@@ -87,6 +87,14 @@ class WaitForSeleniumStandaloneServer extends BaseTask implements TaskInterface
     {
         try {
             $client = new GuzzleHttp\Client();
+
+            $client->getEventDispatcher()->addListener('request.error', function(Event $event) {
+                if ($event['response']->getStatusCode() != 200) {
+                    // Stop other events from firing when you get stytus-code != 200
+                    $event->stopPropagation();
+                }
+            });
+
             $res = $client->get($this->url);
             if (200 == $res->getStatusCode())
             {
