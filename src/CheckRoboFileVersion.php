@@ -24,13 +24,15 @@ class CheckRoboFileVersion extends BaseTask implements TaskInterface
 {
     /**
      * @var string the latest version of RoboFile script
+     *
+     * @todo: it would be better to retrieve this value by parsing RoboFile.dist.php
      */
-    private $version = '1.0';
+    private $version = '1.2';
 
     /**
      * @var string The actual version at the repo
      */
-    private $clientVersion = '1.0';
+    private $clientVersion;
 
     public function __construct($clientVersion)
     {
