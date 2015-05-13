@@ -37,5 +37,13 @@ trait loadTasks {
     {
         return new WaitForSeleniumStandaloneServer();
     }
+
+    /**
+     * @return taskCheckRoboFileVersion
+     */
+    protected function taskCheckRoboFileVersion()
+    {
+        return new CheckRoboFileVersion();
+    }
 }
 
