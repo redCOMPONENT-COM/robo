@@ -41,9 +41,9 @@ trait loadTasks {
     /**
      * @return taskCheckRoboFileVersion
      */
-    protected function taskCheckRoboFileVersion()
+    protected function taskCheckRoboFileVersion($clientVersion)
     {
-        return new CheckRoboFileVersion();
+        return new CheckRoboFileVersion($clientVersion);
     }
 }
 

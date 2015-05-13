@@ -9,7 +9,6 @@
 
 namespace redcomponent\robo;
 
-use Robo\Result;
 use Robo\Task\BaseTask;
 use Robo\Common\ExecOneCommand;
 use Robo\Contract\CommandInterface;
@@ -45,28 +44,18 @@ class CheckRoboFileVersion extends BaseTask implements TaskInterface
     {
         $this->printTaskInfo('Checking RoboFile Version');
 
+        $this->say("Your RoboFile.php version is $this->clientVersion, the latest version is $this->version");
+
         if(version_compare($this->version, $this->clientVersion, '>'))
         {
-            $this->say('your RoboFile version is outdated, please replace it with the following content:');
-            $this->say('------------------------------ content start -----------------------------------');
-            $this->say(file_get_contents('RoboFile.dist.php'));
-            $this->say('------------------------------ content end -------------------------------------');
+            $this->yell('Your RoboFile.php version is outdated');
+            $this->say('Please consider replacing it with the contents of the latest version at:');
+            $this->say('https://github.com/redCOMPONENT-COM/robo/blob/master/src/RoboFile.dist.php');
 
-            return new Result(
-                $this,
-                1,
-                'Please update your RoboFile',
-                []
-            );
+            return new \Robo\Result($this, 0, 'Please update your RoboFile');
         }
 
-
-        return new Result(
-            $this,
-            0,
-            'Your RoboFile is up to date',
-            ['time' => $this->getExecutionTime()]
-        );
+        return new \Robo\Result($this, 0, 'Your RoboFile is up to date');
     }
 
 }
