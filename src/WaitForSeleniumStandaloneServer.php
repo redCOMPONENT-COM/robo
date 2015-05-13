@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     robo-tasks
- * @subpackage  
+ * @subpackage
  *
  * @copyright   Copyright (C) 2005 - 2015 redCOMPONENT.com. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
@@ -17,8 +17,9 @@ use Robo\Contract\TaskInterface;
 use Robo\Contract\PrintedInterface;
 use Robo\Exception\TaskException;
 use Robo\Common\Timer;
-use GuzzleHttp;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Process\Process;
+
 
 /**
  * Class WaitForSeleniumStandaloneServerTask
@@ -86,21 +87,16 @@ class WaitForSeleniumStandaloneServer extends BaseTask implements TaskInterface
     private function isUrlAvailable($url)
     {
         try {
-            $client = new GuzzleHttp\Client();
+            $command = "curl --output /dev/null --silent --head $this->url";
+            $process = new Process($command);
+            $process->setTimeout(null);
+            $process->run();
 
-            $client->getEventDispatcher()->addListener('request.error', function(Event $event) {
-                if ($event['response']->getStatusCode() != 200) {
-                    // Stop other events from firing when you get stytus-code != 200
-                    $event->stopPropagation();
-                }
-            });
+            // to debug: $this->say('The exit code is: ' . $process->getExitCode());
 
-            $res = $client->get($this->url);
-            if (200 == $res->getStatusCode())
-            {
+            if (0 == $process->getExitCode()) {
                 return true;
             }
-            $this->say('selenium not yet ready');
             return false;
         }
         catch (Exception $e)
