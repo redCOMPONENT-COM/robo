@@ -117,7 +117,7 @@ class SendCodeceptionOutputToSlack extends BaseTask implements TaskInterface
                 if(getenv('TRAVIS'))
                 {
                     $travisLogUrl = 'https://magnum.travis-ci.com/';
-                    if (getenv('SLACK_ENCRYPTED_TOKEN'))
+                    if (getenv('TRAVIS_PUBLIC_REPOSITORY'))
                     {
                         // Means that we are in a public repository
                         $travisLogUrl = 'https://travis-ci.org/';
