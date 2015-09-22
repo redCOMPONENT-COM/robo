@@ -47,7 +47,11 @@ class WaitForSeleniumStandaloneServer extends BaseTask implements TaskInterface
      */
     public function run()
     {
+        // @todo: temporal hotfix to allow it running in windows machines
+        sleep(15);
+
         $this->startTimer();
+        /*
         $this->printTaskInfo('Waiting for Selenium Standalone server to launch');
 
         $timeout = 0;
@@ -73,7 +77,7 @@ class WaitForSeleniumStandaloneServer extends BaseTask implements TaskInterface
             sleep(1);
             $timeout++;
         }
-
+        */
         $this->stopTimer();
 
         return new Result(
@@ -87,7 +91,7 @@ class WaitForSeleniumStandaloneServer extends BaseTask implements TaskInterface
     private function isUrlAvailable($url)
     {
         try {
-            $command = "curl --output /dev/null --silent --head $this->url";
+            $command = "curl  --retry 3 --retry-delay 5 --output /dev/null --silent --head $this->url";
             $process = new Process($command);
             $process->setTimeout(null);
             $process->run();
