@@ -19,6 +19,7 @@ use Robo\Exception\TaskException;
 use Robo\Common\Timer;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 
 /**
