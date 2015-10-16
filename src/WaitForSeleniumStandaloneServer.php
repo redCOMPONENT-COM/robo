@@ -47,10 +47,23 @@ class WaitForSeleniumStandaloneServer extends BaseTask implements TaskInterface
      */
     public function run()
     {
-        // @todo: temporal hotfix to allow it running in windows machines
-        sleep(15);
-
         $this->startTimer();
+
+        // @todo: temporal hotfix to allow it running in windows machines
+        $seconds = 15;
+
+        $progress = new ProgressBar($this->getOutput(), $seconds);
+
+        $progress->start();
+
+        $i = 0;
+        while ($i++ < $seconds) {
+            sleep(1);
+            // advance the progress bar 1 unit
+            $progress->advance();
+        }
+
+        $progress->finish();
         /*
         $this->printTaskInfo('Waiting for Selenium Standalone server to launch');
 
