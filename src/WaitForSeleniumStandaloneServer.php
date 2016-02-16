@@ -51,7 +51,7 @@ class WaitForSeleniumStandaloneServer extends BaseTask implements TaskInterface
         $this->startTimer();
 
         // @todo: temporal hotfix to allow it running in windows machines
-        $seconds = 15;
+        $seconds = 5;
 
         $progress = new ProgressBar($this->getOutput(), $seconds);
 
