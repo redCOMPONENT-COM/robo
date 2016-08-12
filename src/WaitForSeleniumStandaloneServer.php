@@ -39,7 +39,7 @@ class WaitForSeleniumStandaloneServer extends BaseTask implements TaskInterface
     public function __construct($url = null)
     {
         if (is_null($url)) {
-            $this->url = 'http://localhost:4444/wd/hub/static/resource/hub.html';
+            $this->url = 'http://localhost:4444/wd/hub';
         }
     }
 
@@ -57,8 +57,8 @@ class WaitForSeleniumStandaloneServer extends BaseTask implements TaskInterface
         {
             $this->getOutput()->write('.');
 
-            // If selenium has not started after 15 seconds then die
-            if ($timeout > 15)
+            // If selenium has not started after 60 seconds then die
+            if ($timeout > 60)
             {
                 $error = new Result(
                     $this,
@@ -89,7 +89,7 @@ class WaitForSeleniumStandaloneServer extends BaseTask implements TaskInterface
     private function isUrlAvailable($url)
     {
         try {
-            $command = "curl  --retry 3 --retry-delay 5 --output /dev/null --silent $this->url";
+            $command = "curl  --retry 6 --retry-delay 10 --output /dev/null --silent $this->url";
             $process = new Process($command);
             $process->setTimeout(null);
             $process->run();
