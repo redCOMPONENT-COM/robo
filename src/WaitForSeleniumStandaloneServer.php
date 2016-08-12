@@ -89,7 +89,7 @@ class WaitForSeleniumStandaloneServer extends BaseTask implements TaskInterface
     private function isUrlAvailable($url)
     {
         try {
-            $command = "curl  --retry 3 --retry-delay 5 --output /dev/null --silent --head $this->url";
+            $command = "curl  --retry 3 --retry-delay 5 --output /dev/null --silent $this->url";
             $process = new Process($command);
             $process->setTimeout(null);
             $process->run();
