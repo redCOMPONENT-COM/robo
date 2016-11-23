@@ -1,6 +1,6 @@
 {
   "name": "redcomponent/robo",
-  "description": "Robo tasks for redCOMPONENT Quality Assurance",
+  "description": "Robo tasks for redWEB Quality Assurance",
   "keywords": ["robo", "task", "bdd"],
   "require": {
     "php": ">=5.4.0"
@@ -9,7 +9,7 @@
   "authors": [
     {
       "name": "redCOMPONENT",
-      "email": "javier@redcomponent.com"
+      "email": "email@redweb.dk"
     }
   ],
   "autoload": {
