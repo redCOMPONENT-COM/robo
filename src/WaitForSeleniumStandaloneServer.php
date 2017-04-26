@@ -55,7 +55,14 @@ class WaitForSeleniumStandaloneServer extends BaseTask implements TaskInterface
         $timeout = 0;
         while(!$this->isUrlAvailable($this->url))
         {
-            $this->getOutput()->write('.');
+        	if (method_exists($this, 'getOutput'))
+	        {
+		        $this->getOutput()->write('.');
+	        }
+            elseif (method_exists($this, 'getOutputData'))
+            {
+	            $this->getOutputData()->write('.');
+            }
 
             // If selenium has not started after 60 seconds then die
             if ($timeout > 60)
