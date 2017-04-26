@@ -15,14 +15,6 @@ namespace redcomponent\robo;
  */
 trait loadTasks {
     /**
-     * @return HelloWorld
-     */
-    protected function taskHelloWorld()
-    {
-        return new HelloWorld();
-    }
-
-    /**
      * @return SendCodeceptionOutputToSlack
      */
     protected function taskSendCodeceptionOutputToSlack($slackChannel, $slackToken, $codeceptionOutputFolder)
